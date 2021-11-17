@@ -3,15 +3,17 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, authenticate, logout
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+from App_Login.forms import SignUpForm
+
 
 # Create your views here.
 
 
 def sign_up(request):
-    form = UserCreationForm()
+    form = SignUpForm()
     registered = False
     if request.method == 'POST':
-        form = UserCreationForm(data=request.POST)
+        form = SignUpForm(data=request.POST)
         if form.is_valid():
             form.save()
             registered = True
@@ -38,3 +40,7 @@ def logout_user(request):
     logout(request)
     return HttpResponseRedirect(reverse('App_Login:signin'))
 
+
+@login_required
+def profile(request):
+    return render(request, 'App_Login/profile.html', context={})
