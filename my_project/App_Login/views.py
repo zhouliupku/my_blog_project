@@ -18,7 +18,8 @@ def sign_up(request):
             form.save()
             registered = True
     dict = {'form': form, 'registered': registered}
-    return render(request, 'App_login/signup.html', context=dict)
+    # return render(request, 'App_Login/login.html', context={'form': form})
+    return render(request, 'App_Login/signup.html', context=dict)
 
 
 def login_page(request):
@@ -35,7 +36,7 @@ def login_page(request):
     return render(request, 'App_Login/login.html', context={'form': form})
 
 
-@login_required()
+@login_required
 def logout_user(request):
     logout(request)
     return HttpResponseRedirect(reverse('App_Login:signin'))
